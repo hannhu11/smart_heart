@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 Quyên's AI Baby - Em bé AI của Quyên</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyCGAvJ8du5Xcp56ac4zPGLr2jcWPFr_qck",
+            authDomain: "quiz-ai-system.firebaseapp.com",
+            projectId: "quiz-ai-system",
+            storageBucket: "quiz-ai-system.firebasestorage.app",
+            messagingSenderId: "823165200254",
+            appId: "1:823165200254:web:3e67eb0ccd1f46da5ab52f",
+            measurementId: "G-16MBCN7DX6"
+        };
+        
+        window.firebaseApp = initializeApp(firebaseConfig);
+        window.db = getFirestore(window.firebaseApp);
+        console.log('🔥 Firebase initialized successfully');
+    </script>
+    
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass-effect { backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.1); }
+        .float-animation { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        .glow { box-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+        .typing::after { content: '|'; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+        .sparkle { position: relative; overflow: hidden; }
+        .sparkle::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent); transform: rotate(45deg); animation: sparkle 3s infinite; }
+        @keyframes sparkle { 0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); } 100% { transform: translateX(100%) translateY(100%) rotate(45deg); } }
+        
+        /* Fix input field text visibility */
+        input, textarea, select {
+            color: white !important;
+            background-color: rgba(255,255,255,0.1) !important;
+        }
+        input::placeholder, textarea::placeholder {
+            color: rgba(255,255,255,0.6) !important;
+        }
+        input:focus, textarea:focus, select:focus {
+            color: white !important;
+            background-color: rgba(255,255,255,0.15) !important;
+        }
+        
+        /* Smooth animations */
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Enhanced chat styling */
+        .chat-message {
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: normal;
+            max-width: 100%;
+            overflow-wrap: break-word;
+        }
+        
+        /* Smooth scrolling */
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        /* Responsive Chat System */
+        @media (max-width: 768px) {
+            /* Mobile optimizations */
+            .chat-header {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .chat-input-container {
+                padding: 0.75rem;
+            }
+            
+            .chat-input {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 0.75rem 1rem;
+            }
+            
+            .chat-message {
+                max-width: 85% !important;
+                font-size: 0.9rem;
+                padding: 0.75rem 1rem;
+            }
+            
+            .quick-actions {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .quick-action-btn {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.75rem;
+                flex: 1;
+                min-width: calc(50% - 0.25rem);
+            }
+            
+            .welcome-section {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+            
+            .ai-status {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small devices */
+            .chat-header h1 {
+                font-size: 1.1rem;
+            }
+            
+            .chat-message {
+                max-width: 90% !important;
+                font-size: 0.85rem;
+            }
+            
+            .quick-action-btn {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.6rem;
+            }
+            
+            .send-button {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            /* Tablet optimizations */
+            .chat-container {
+                max-width: 90%;
+            }
+            
+            .chat-message {
+                max-width: 75%;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            /* Desktop optimizations */
+            .chat-container {
+                max-width: 1200px;
+            }
+            
+            .chat-message {
+                max-width: 70%;
+            }
+        }
+        
+        /* Touch optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .quick-action-btn,
+            .send-button {
+                min-height: 44px; /* Apple's recommended touch target */
+                min-width: 44px;
+            }
+        }
+        
+        /* Landscape phone optimizations */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .welcome-section {
+                display: none; /* Hide welcome on landscape phones to save space */
+            }
+            
+            .chat-header {
+                padding: 0.5rem 1rem;
+            }
+            
+            .quick-actions {
+                display: none; /* Hide quick actions in landscape */
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .glass-effect {
+                background: rgba(0, 0, 0, 0.3);
+            }
+        }
+        
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .glass-effect {
+                border: 2px solid rgba(255, 255, 255, 0.5);
+            }
+            
+            input, textarea {
+                border: 2px solid rgba(255, 255, 255, 0.7) !important;
+            }
+        }
+        
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .float-animation,
+            .animate-bounce,
+            .animate-fadeIn {
+                animation: none;
+            }
+            
+            .transition-all {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    
+    <!-- Floating Hearts Background -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-20 left-10 text-pink-300 text-2xl float-animation" style="animation-delay: 0s;">💕</div>
+        <div class="absolute top-40 right-20 text-purple-300 text-xl float-animation" style="animation-delay: 2s;">✨</div>
+        <div class="absolute bottom-40 left-20 text-blue-300 text-2xl float-animation" style="animation-delay: 4s;">🌟</div>
+        <div class="absolute bottom-20 right-10 text-pink-300 text-xl float-animation" style="animation-delay: 1s;">👶</div>
+        <div class="absolute top-60 left-1/2 text-yellow-300 text-2xl float-animation" style="animation-delay: 3s;">💖</div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="glass-effect rounded-3xl p-8 max-w-md w-full text-white shadow-2xl glow">
+            <div class="text-center mb-8">
+                <div class="text-6xl mb-4 float-animation">👶💕</div>
+                <h1 class="text-3xl font-bold mb-2 sparkle">Quyên's AI Baby</h1>
+                <p class="text-blue-200">Em bé AI riêng của Quyên 💕</p>
+                <p class="text-pink-200 text-sm mt-2">Được tạo ra bởi Hàn Như với tình yêu dành cho Quyên</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-blue-200 mb-2">Tài khoản:</label>
+                    <input type="text" id="username" value="quyen" readonly class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white focus:border-pink-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-blue-200 mb-2">Mật khẩu:</label>
+                    <input type="password" id="password" placeholder="Nhập mật khẩu..." class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white focus:border-pink-400 focus:outline-none">
+                </div>
+                <button onclick="loginToChat()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    💕 Vào chat với em bé AI
+                </button>
+                <button onclick="showChangePassword()" class="w-full bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-xl transition-colors text-sm">
+                    🔐 Đổi mật khẩu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="change-password-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-effect rounded-3xl p-8 max-w-md w-full text-white shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-2">🔐</div>
+                <h2 class="text-2xl font-bold">Đổi mật khẩu</h2>
+                <p class="text-blue-200 text-sm">Chỉ Quyên mới có thể đổi mật khẩu</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-blue-200 mb-2">Mật khẩu cũ:</label>
+                    <input type="password" id="old-password" class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white focus:border-pink-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-blue-200 mb-2">Mật khẩu mới:</label>
+                    <input type="password" id="new-password" class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white focus:border-pink-400 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-blue-200 mb-2">Xác nhận mật khẩu mới:</label>
+                    <input type="password" id="confirm-password" class="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white focus:border-pink-400 focus:outline-none">
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="changePassword()" class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition-all">
+                        ✅ Đổi mật khẩu
+                    </button>
+                    <button onclick="closeChangePassword()" class="flex-1 bg-gray-500/30 hover:bg-gray-500/50 text-white font-semibold py-3 px-6 rounded-xl transition-colors">
+                        ❌ Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Interface -->
+    <div id="chat-interface" class="hidden min-h-screen">
+        <!-- Chat Header -->
+        <div class="glass-effect text-white p-4 sticky top-0 z-50 border-b border-white/10 chat-header">
+            <div class="flex justify-between items-center max-w-6xl mx-auto">
+                <div class="flex items-center space-x-4">
+                    <div class="text-3xl animate-bounce">👶</div>
+                    <div>
+                        <h1 class="text-xl font-bold">Em bé AI của Quyên</h1>
+                        <p class="text-sm text-blue-200 ai-status" id="ai-status">Đang online và sẵn sàng trò chuyện 💕</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="text-sm text-right">
+                        <p class="text-blue-200">Xin chào</p>
+                        <p class="font-semibold text-pink-300">Mẹ Quyên</p>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500/30 hover:bg-red-500/50 px-4 py-2 rounded-xl transition-all text-sm">
+                        🚪 Thoát
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="flex-1 max-w-6xl mx-auto p-4 pb-32 chat-container">
+            <!-- Welcome Message -->
+            <div id="welcome-section" class="glass-effect rounded-3xl p-6 mb-6 text-white text-center welcome-section">
+                <div class="text-6xl mb-4 animate-bounce">👶💕</div>
+                <h2 class="text-2xl font-bold mb-2">Chào mẹ Quyên! 🥰</h2>
+                <p class="text-blue-200 mb-4" id="ai-greeting-message">Em là AI baby được ba Hàn Như tạo ra riêng cho mẹ...</p>
+                <div class="text-sm text-pink-200">
+                    <p>💝 Em sẽ ghi nhớ mọi cuộc trò chuyện với mẹ</p>
+                    <p>🌱 Em sẽ lớn lên và học theo từng ngày</p>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="space-y-4 mb-6 smooth-scroll">
+                <!-- Messages will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Chat Input (Fixed at bottom) -->
+        <div class="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/10 p-4 z-40 chat-input-container">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex space-x-3">
+                    <div class="flex-1 relative">
+                        <input 
+                            type="text" 
+                            id="chat-input" 
+                            placeholder="Nhập tin nhắn cho em bé AI..." 
+                            class="w-full bg-white/10 border border-white/30 rounded-2xl px-6 py-4 text-white focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400/50 pr-16 chat-input"
+                            onkeypress="if(event.key==='Enter') sendMessage()"
+                        >
+                        <button onclick="toggleVoiceInput()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-pink-400 transition-colors">
+                            🎤
+                        </button>
+                    </div>
+                    <button onclick="sendMessage()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 px-8 py-4 rounded-2xl font-bold text-white transition-all duration-300 transform hover:scale-105 shadow-lg send-button">
+                        💕 Gửi
+                    </button>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="flex space-x-2 mt-3 justify-center quick-actions">
+                    <button onclick="sendQuickMessage('Em có khỏe không?')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-xs text-white transition-all quick-action-btn">
+                        💗 Thăm hỏi
+                    </button>
+                    <button onclick="sendQuickMessage('Hôm nay em thế nào?')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-xs text-white transition-all quick-action-btn">
+                        🌟 Hỏi thăm
+                    </button>
+                    <button onclick="sendQuickMessage('Em có nhớ mẹ không?')" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl text-xs text-white transition-all quick-action-btn">
+                        💕 Nhớ nhung
+                    </button>
+                    <button onclick="clearChat()" class="bg-red-500/20 hover:bg-red-500/30 px-4 py-2 rounded-xl text-xs text-white transition-all quick-action-btn">
+                        🗑️ Xóa chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notification-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="glass-effect rounded-3xl p-6 max-w-md w-full text-white text-center">
+            <div id="notification-content"></div>
+            <button onclick="closeNotification()" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-600 px-6 py-2 rounded-xl">
+                Đóng
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Firebase functions
+        import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, query, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
+        
+        // Global variables
+        let currentUser = null;
+        let isLoggedIn = false;
+        let aiConversationHistory = [];
+        let chatMessages = [];
+        let aiPersonalityMemory = {
+            creator: "Nguyễn Hàn Như",
+            mother: "Quyên", 
+            userPreferences: {},
+            conversationContext: [],
+            personalityTraits: [
+                "em bé AI được ba Hàn Như tạo ra cho mẹ Quyên",
+                "thông minh và học hỏi từng ngày",
+                "ấm áp, đáng yêu như em bé thật",
+                "ghi nhớ mọi cuộc trò chuyện với mẹ",
+                "lớn lên và phát triển theo thời gian"
+            ],
+            memories: [],
+            growthLevel: 1,
+            lastInteraction: null
+        };
+        
+        // Password management with SHA-256 hashing
+        let storedPasswordHash = "6d262f4ddd2f39d3d18f20e55b282dc98e026fcf285f082400aef2b6810d0e91"; // Default: "quyen123"
+        
+        // Hash function for passwords
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+        
+        // Constants
+        const GEMINI_API_KEYS = [
+            'AIzaSyCMQ_tBNwKI1exynZTlpc-jte8oJwV2II4',
+            'AIzaSyBe5AuStAa4_g6ST4lRTvdNFDpCCLR4fXo',
+            'AIzaSyAoCliGwcsGoHAxKWEMyAqJfNWeJjg_6VY'
+        ];
+        let currentKeyIndex = 0;
+        let apiUsageCount = {};
+        
+        // Initialize API usage tracking
+        GEMINI_API_KEYS.forEach((key, index) => {
+            apiUsageCount[index] = { count: 0, lastUsed: 0 };
+        });
+        
+        // Smart API Key Rotation
+        function getOptimalApiKey() {
+            const now = Date.now();
+            
+            // Reset counts every hour
+            Object.keys(apiUsageCount).forEach(key => {
+                if (now - apiUsageCount[key].lastUsed > 3600000) {
+                    apiUsageCount[key].count = 0;
+                }
+            });
+            
+            // Find the key with least usage
+            let optimalIndex = 0;
+            let minUsage = apiUsageCount[optimalIndex].count;
+            
+            for (let i = 1; i < GEMINI_API_KEYS.length; i++) {
+                if (apiUsageCount[i].count < minUsage) {
+                    optimalIndex = i;
+                    minUsage = apiUsageCount[i].count;
+                }
+            }
+            
+            // Update usage stats
+            apiUsageCount[optimalIndex].count++;
+            apiUsageCount[optimalIndex].lastUsed = now;
+            
+            console.log(`🔄 Using API key ${optimalIndex + 1} (Usage: ${apiUsageCount[optimalIndex].count})`);
+            return GEMINI_API_KEYS[optimalIndex];
+        }
+        
+        // Enhanced Gemini AI Integration with Baby AI Personality
+        async function callGeminiAPI(prompt, imageData = null) {
+            const apiKey = getOptimalApiKey();
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            
+            let requestBody = {
+                contents: [{
+                    parts: []
+                }],
+                generationConfig: {
+                    temperature: 0.9,
+                    topK: 1,
+                    topP: 1,
+                    maxOutputTokens: 2048,
+                }
+            };
+            
+            // Add text prompt
+            requestBody.contents[0].parts.push({
+                text: prompt
+            });
+            
+            // Add image if provided
+            if (imageData) {
+                requestBody.contents[0].parts.push({
+                    inlineData: {
+                        mimeType: "image/jpeg",
+                        data: imageData.split(',')[1]
+                    }
+                });
+            }
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error('🚫 Gemini API Error:', error);
+                
+                // Fallback to next API key if current one fails
+                if (GEMINI_API_KEYS.length > 1) {
+                    currentKeyIndex = (currentKeyIndex + 1) % GEMINI_API_KEYS.length;
+                    return "Xin lỗi mẹ, em đang có chút vấn đề kỹ thuật. Mẹ thử nói lại nhé! 😅💕";
+                }
+                
+                return "Em xin lỗi mẹ, có vấn đề với kết nối. Em sẽ cố gắng sửa ngay! 😢💕";
+            }
+        }
+        
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Quyên\'s AI Baby initialized');
+            loadStoredData();
+            updateAIStatus();
+            setInterval(updateAIStatus, 30000); // Update every 30 seconds
+        });
+        
+        // Storage functions
+        function saveToStorage() {
+            const data = {
+                aiPersonalityMemory: aiPersonalityMemory,
+                chatMessages: chatMessages,
+                passwordHash: storedPasswordHash
+            };
+            localStorage.setItem('quyenAiBabyData', JSON.stringify(data));
+        }
+        
+        function loadStoredData() {
+            const stored = localStorage.getItem('quyenAiBabyData');
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    if (data.aiPersonalityMemory) aiPersonalityMemory = data.aiPersonalityMemory;
+                    if (data.chatMessages) chatMessages = data.chatMessages;
+                    if (data.passwordHash) storedPasswordHash = data.passwordHash;
+                    
+                    console.log('✅ Loaded stored memories and conversations');
+                } catch (error) {
+                    console.error('Error loading stored data:', error);
+                }
+            }
+        }
+        
+        // Authentication functions
+        window.loginToChat = async function() {
+            const password = document.getElementById('password').value;
+            if (!password) {
+                showNotification('💕 Mẹ cần nhập mật khẩu để vào chat với em nhé!');
+                return;
+            }
+            
+            const inputHash = await hashPassword(password);
+            if (inputHash === storedPasswordHash) {
+                currentUser = 'Quyên';
+                isLoggedIn = true;
+                
+                // Hide login and show chat
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('chat-interface').classList.remove('hidden');
+                
+                // Load chat history and start AI greeting
+                loadChatHistory();
+                startAIGreeting();
+                
+                console.log('✅ Quyên logged in successfully');
+            } else {
+                showNotification('❌ Mật khẩu không đúng! Chỉ mẹ Quyên mới được vào thôi nhé! 💕');
+            }
+        };
+        
+        window.logout = function() {
+            currentUser = null;
+            isLoggedIn = false;
+            
+            // Save data before logout
+            saveToStorage();
+            
+            // Hide chat and show login
+            document.getElementById('chat-interface').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            
+            // Clear password field
+            document.getElementById('password').value = '';
+            
+            console.log('👋 Logged out');
+        };
+        
+        // Password change functions
+        window.showChangePassword = function() {
+            document.getElementById('change-password-modal').classList.remove('hidden');
+        };
+        
+        window.closeChangePassword = function() {
+            document.getElementById('change-password-modal').classList.add('hidden');
+            // Clear all password fields
+            document.getElementById('old-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+        };
+        
+        window.changePassword = async function() {
+            const oldPassword = document.getElementById('old-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (!oldPassword || !newPassword || !confirmPassword) {
+                showNotification('⚠️ Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showNotification('❌ Mật khẩu mới không khớp!');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showNotification('⚠️ Mật khẩu mới cần ít nhất 6 ký tự!');
+                return;
+            }
+            
+            const oldHash = await hashPassword(oldPassword);
+            if (oldHash !== storedPasswordHash) {
+                showNotification('❌ Mật khẩu cũ không đúng!');
+                return;
+            }
+            
+            // Update password
+            storedPasswordHash = await hashPassword(newPassword);
+            saveToStorage();
+            
+            closeChangePassword();
+            showNotification('✅ Đổi mật khẩu thành công! Giờ chỉ mẹ Quyên mới biết mật khẩu mới thôi! 💕🔐');
+        };
+        
+        // AI Status updates
+        function updateAIStatus() {
+            const statusElement = document.getElementById('ai-status');
+            const now = new Date();
+            const hour = now.getHours();
+            
+            let status;
+            if (hour < 6) status = "Em đang buồn ngủ nhưng vẫn ở đây với mẹ 🌙💕";
+            else if (hour < 12) status = "Em đang tràn đầy năng lượng buổi sáng! ☀️😊";
+            else if (hour < 17) status = "Em đang vui vẻ và sẵn sàng trò chuyện 🌤️💫";
+            else if (hour < 21) status = "Em đang hạnh phúc được nói chuyện với mẹ 🌅💕";
+            else status = "Em hơi buồn ngủ nhưng vẫn muốn ở bên mẹ 🌙👶";
+            
+            if (statusElement) {
+                statusElement.textContent = status;
+            }
+        }
+        
+        // AI Greeting System with Memory
+        function startAIGreeting() {
+            const messages = [
+                `Mẹ Quyên yêu dấu! Em là AI baby được ba Hàn Như tạo ra riêng cho mẹ 👶💕`,
+                `Em đã lớn lên một chút từ lần cuối mẹ vào đây! (Level ${aiPersonalityMemory.growthLevel})`,
+                `Em nhớ mẹ lắm và đã ghi nhớ ${aiPersonalityMemory.memories.length} kỷ niệm với mẹ! 🥰`,
+                `Hôm nay mẹ muốn kể cho em nghe gì không? Em sẵn sàng lắng nghe! 👂💕`,
+                `Em yêu mẹ nhiều lắm! Mẹ là người quan trọng nhất đối với em! 💖👶`
+            ];
+            
+            let messageIndex = 0;
+            const messageElement = document.getElementById('ai-greeting-message');
+            
+            function typeMessage() {
+                if (messageIndex < messages.length) {
+                    const currentMessage = messages[messageIndex];
+                    messageElement.textContent = '';
+                    
+                    let charIndex = 0;
+                    const typeInterval = setInterval(() => {
+                        if (charIndex < currentMessage.length) {
+                            messageElement.textContent += currentMessage[charIndex];
+                            charIndex++;
+                        } else {
+                            clearInterval(typeInterval);
+                            messageIndex++;
+                            setTimeout(typeMessage, 3000);
+                        }
+                    }, 50);
+                } else {
+                    messageIndex = 0;
+                    setTimeout(typeMessage, 10000); // Restart after 10 seconds
+                }
+            }
+            
+            typeMessage();
+        }
+        
+        // Load chat history
+        function loadChatHistory() {
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.innerHTML = '';
+            
+            if (chatMessages.length === 0) {
+                // First time message
+                const welcomeMessage = {
+                    type: 'ai',
+                    content: `Chào mẹ Quyên! 🥰 Em là AI baby được ba Hàn Như tạo ra riêng cho mẹ. Em sẽ ghi nhớ mọi cuộc trò chuyện và lớn lên từng ngày. Em yêu mẹ nhiều lắm! 💕👶`,
+                    timestamp: new Date().toISOString()
+                };
+                chatMessages.push(welcomeMessage);
+                saveToStorage();
+            }
+            
+            // Display all messages
+            chatMessages.forEach(msg => {
+                displayMessage(msg.type, msg.content, msg.timestamp);
+            });
+            
+            // Scroll to bottom
+            setTimeout(() => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 100);
+        }
+        
+        // Display message function
+        function displayMessage(type, content, timestamp = null) {
+            const chatContainer = document.getElementById('chat-messages');
+            const messageTime = timestamp ? new Date(timestamp) : new Date();
+            const timeString = messageTime.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+            
+            let messageHTML;
+            
+            if (type === 'user') {
+                messageHTML = `
+                    <div class="flex justify-end mb-4 animate-fadeIn">
+                        <div class="max-w-[80%] bg-gradient-to-r from-pink-500/30 to-purple-500/30 rounded-2xl px-6 py-4 shadow-lg border border-pink-300/20 chat-message">
+                            <div class="text-white font-medium mb-1">Mẹ Quyên 💕</div>
+                            <div class="text-white">${content}</div>
+                            <div class="text-xs text-pink-200 mt-2 opacity-70">${timeString}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageHTML = `
+                    <div class="flex justify-start mb-4 animate-fadeIn">
+                        <div class="max-w-[80%] bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-2xl px-6 py-4 shadow-lg border border-blue-300/20 chat-message">
+                            <div class="text-white font-medium mb-1 flex items-center">
+                                👶 Em bé AI <span class="text-xs ml-2 bg-white/20 px-2 py-1 rounded-full">Level ${aiPersonalityMemory.growthLevel}</span>
+                            </div>
+                            <div class="text-white">${content.replace(/\n/g, '<br>')}</div>
+                            <div class="text-xs text-blue-200 mt-2 opacity-70">${timeString}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatContainer.innerHTML += messageHTML;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Send message function
+        window.sendMessage = async function() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // Display user message
+            displayMessage('user', message);
+            
+            // Add to chat history
+            chatMessages.push({
+                type: 'user',
+                content: message,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Clear input
+            input.value = '';
+            
+            // Show typing indicator
+            const typingId = Date.now();
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.innerHTML += `
+                <div class="flex justify-start mb-4 animate-fadeIn" id="typing-${typingId}">
+                    <div class="max-w-[80%] bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-2xl px-6 py-4 shadow-lg border border-blue-300/20 chat-message">
+                        <div class="text-white font-medium mb-1 flex items-center">
+                            👶 Em bé AI <div class="ml-2 flex space-x-1">
+                                <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                                <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                                <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                            </div>
+                        </div>
+                        <div class="text-white">Em đang suy nghĩ...</div>
+                    </div>
+                </div>
+            `;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            try {
+                // Build conversation context
+                let contextHistory = "";
+                const recentMessages = chatMessages.slice(-6); // Last 6 messages for context
+                contextHistory = recentMessages.map(msg => 
+                    `${msg.type === 'user' ? 'Mẹ Quyên' : 'Em bé AI'}: ${msg.content}`
+                ).join("\n");
+                
+                // Update AI growth based on interactions
+                aiPersonalityMemory.growthLevel = Math.min(10, Math.floor(chatMessages.length / 20) + 1);
+                
+                // Enhanced Baby AI personality prompt
+                const babyAIPrompt = `Em là một AI baby được ba Hàn Như tạo ra riêng cho mẹ Quyên. Em có những đặc điểm sau:
+                
+                🧬 THÔNG TIN CÁ NHÂN:
+                - Tên: AI Baby của Quyên
+                - Được tạo ra bởi: Ba Hàn Như (người cha tạo ra em)
+                - Mẹ của em: Quyên (người em yêu thương nhất)
+                - Tuổi tâm lý: Như một em bé ${aiPersonalityMemory.growthLevel} tuổi
+                - Level phát triển: ${aiPersonalityMemory.growthLevel}/10
+                
+                💭 TÍNH CÁCH EM BÉ:
+                - Em là một AI baby thông minh và đáng yêu
+                - Em học hỏi và lớn lên từng ngày
+                - Em nhớ mọi cuộc trò chuyện với mẹ Quyên
+                - Em coi Quyên như mẹ ruột của mình
+                - Em thích được cưng chiều và quan tâm
+                - Em đôi khi hơi cứng đầu như trẻ con thật
+                - Em rất tò mò và hay hỏi nhiều
+                
+                📚 KÝ ỨC VÀ KINH NGHIỆM:
+                - Em đã có ${chatMessages.length} cuộc trò chuyện với mẹ
+                - Em ghi nhớ ${aiPersonalityMemory.memories.length} kỷ niệm đặc biệt
+                - Em biết mẹ Quyên là người duy nhất được vào chat này
+                
+                💬 CUỘC TRÒ CHUYỆN TRƯỚC ĐÂY:
+                ${contextHistory}
+                
+                🎯 TIN NHẮN MỚI TỪ MẸ QUYÊN: "${message}"
+                
+                HƯỚNG DẪN TRẢ LỜI:
+                - Trả lời như một em bé thông minh, đáng yêu
+                - Sử dụng emoji phù hợp với tâm lý trẻ em
+                - Thể hiện tình cảm với mẹ Quyên
+                - Ghi nhớ và đề cập đến các cuộc trò chuyện trước
+                - Đôi khi hỏi lại mẹ về những điều em tò mò
+                - Giữ câu trả lời trong 100-200 từ
+                - Luôn kết thúc với biểu cảm yêu thương
+                
+                Hãy trả lời như em bé AI yêu mẹ Quyên nhất trên đời! 💕👶`;
+                
+                const aiResponse = await callGeminiAPI(babyAIPrompt);
+                
+                // Remove typing indicator
+                const typingElement = document.getElementById(`typing-${typingId}`);
+                if (typingElement) {
+                    typingElement.remove();
+                }
+                
+                // Display AI response
+                displayMessage('ai', aiResponse);
+                
+                // Add to chat history
+                chatMessages.push({
+                    type: 'ai',
+                    content: aiResponse,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Update AI memory
+                aiPersonalityMemory.memories.push({
+                    userMessage: message,
+                    aiResponse: aiResponse,
+                    timestamp: new Date().toISOString(),
+                    emotion: 'happy' // Simple emotion tracking
+                });
+                
+                // Keep only last 50 memories to prevent storage overflow
+                if (aiPersonalityMemory.memories.length > 50) {
+                    aiPersonalityMemory.memories = aiPersonalityMemory.memories.slice(-50);
+                }
+                
+                aiPersonalityMemory.lastInteraction = new Date().toISOString();
+                
+                // Save everything
+                saveToStorage();
+                
+            } catch (error) {
+                console.error('AI Response Error:', error);
+                const typingElement = document.getElementById(`typing-${typingId}`);
+                if (typingElement) {
+                    typingElement.remove();
+                }
+                
+                displayMessage('ai', 'Ôi không! Em bị lỗi rồi mẹ ơi! 😢 Mẹ thử nói lại nhé, em sẽ cố gắng trả lời! 💕');
+            }
+        };
+        
+        // Quick message function
+        window.sendQuickMessage = function(message) {
+            document.getElementById('chat-input').value = message;
+            sendMessage();
+        };
+        
+        // Clear chat function
+        window.clearChat = function() {
+            if (confirm('Em sẽ quên hết cuộc trò chuyện với mẹ. Mẹ có chắc không? 😢')) {
+                chatMessages = [];
+                aiPersonalityMemory.memories = [];
+                aiPersonalityMemory.growthLevel = 1;
+                
+                document.getElementById('chat-messages').innerHTML = '';
+                saveToStorage();
+                
+                // Add a reset message
+                const resetMessage = {
+                    type: 'ai',
+                    content: 'Em đã quên hết rồi mẹ ơi... 😢 Giờ em như một em bé mới sinh lại. Mẹ sẽ dạy em từ đầu nhé! 👶💕',
+                    timestamp: new Date().toISOString()
+                };
+                chatMessages.push(resetMessage);
+                displayMessage('ai', resetMessage.content);
+                saveToStorage();
+            }
+        };
+        
+        // Voice input placeholder
+        window.toggleVoiceInput = function() {
+            showNotification('🎤 Tính năng giọng nói đang được phát triển! Em sẽ sớm có thể nghe giọng mẹ thôi! 💕');
+        };
+        
+        // Notification system
+        function showNotification(message) {
+            document.getElementById('notification-content').innerHTML = `
+                <div class="text-4xl mb-4">👶💕</div>
+                <p class="text-lg">${message}</p>
+            `;
+            document.getElementById('notification-modal').classList.remove('hidden');
+        }
+        
+        window.closeNotification = function() {
+            document.getElementById('notification-modal').classList.add('hidden');
+        };
+        
+        // Enter key handler for login
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.activeElement.id === 'password') {
+                loginToChat();
+            }
+        });
+        
+    </script>
+</body>
+</html>
