@@ -92,70 +92,115 @@
             scroll-behavior: smooth;
         }
         
-        /* Responsive Chat System */
+        /* Responsive Chat System - TỐI ƯU HÓA */
         @media (max-width: 768px) {
-            /* Mobile optimizations */
+            /* Mobile optimizations - Thu gọn tối đa */
             .chat-header {
-                padding: 1rem;
-                font-size: 0.9rem;
+                padding: 0.5rem;
+                font-size: 0.8rem;
             }
             
             .chat-input-container {
-                padding: 0.75rem;
+                padding: 0.5rem;
             }
             
             .chat-input {
                 font-size: 16px; /* Prevents zoom on iOS */
-                padding: 0.75rem 1rem;
-            }
-            
-            .chat-message {
-                max-width: 85% !important;
-                font-size: 0.9rem;
-                padding: 0.75rem 1rem;
-            }
-            
-            .quick-actions {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-            
-            .quick-action-btn {
-                font-size: 0.75rem;
                 padding: 0.5rem 0.75rem;
-                flex: 1;
-                min-width: calc(50% - 0.25rem);
-            }
-            
-            .welcome-section {
-                padding: 1rem;
-                margin: 0.5rem;
-            }
-            
-            .ai-status {
-                font-size: 0.8rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            /* Extra small devices */
-            .chat-header h1 {
-                font-size: 1.1rem;
             }
             
             .chat-message {
                 max-width: 90% !important;
                 font-size: 0.85rem;
+                padding: 0.5rem 0.75rem;
+            }
+            
+            .quick-actions {
+                flex-wrap: wrap;
+                gap: 0.25rem;
             }
             
             .quick-action-btn {
                 font-size: 0.7rem;
-                padding: 0.4rem 0.6rem;
+                padding: 0.25rem 0.5rem;
+                flex: 1;
+                min-width: calc(33.33% - 0.17rem);
+            }
+            
+            .welcome-section {
+                padding: 0.75rem;
+                margin: 0.25rem;
+            }
+            
+            .ai-status {
+                font-size: 0.75rem;
+            }
+            
+            /* Thu gọn avatar và status */
+            .chat-header .w-10.h-10 {
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.875rem;
+            }
+            
+            .chat-header .w-4.h-4 {
+                width: 0.75rem;
+                height: 0.75rem;
+                font-size: 0.5rem;
+            }
+            
+            /* Thu gọn text */
+            .chat-header h1 {
+                font-size: 0.875rem;
+            }
+            
+            .chat-header .text-xs {
+                font-size: 0.625rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small devices - Thu gọn tối đa */
+            .chat-header h1 {
+                font-size: 0.75rem;
+            }
+            
+            .chat-message {
+                max-width: 95% !important;
+                font-size: 0.8rem;
+            }
+            
+            .quick-action-btn {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.4rem;
+                min-width: calc(50% - 0.1rem);
             }
             
             .send-button {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            /* Thu gọn thêm */
+            .chat-header {
+                padding: 0.25rem;
+            }
+            
+            .chat-input-container {
+                padding: 0.25rem;
+            }
+            
+            .welcome-section {
+                padding: 0.5rem;
+                margin: 0.125rem;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1rem;
+            }
+            
+            .welcome-section .text-4xl {
+                font-size: 2rem;
             }
         }
         
@@ -181,13 +226,69 @@
             }
         }
         
-        /* Touch optimizations */
+        /* Touch optimizations - Thu gọn */
         @media (hover: none) and (pointer: coarse) {
             .quick-action-btn,
             .send-button {
-                min-height: 44px; /* Apple's recommended touch target */
-                min-width: 44px;
+                min-height: 36px; /* Giảm kích thước touch target */
+                min-width: 36px;
             }
+        }
+        
+        /* Tối ưu hóa thêm cho giao diện nhỏ gọn */
+        .chat-container {
+            padding-bottom: 100px; /* Giảm padding bottom */
+        }
+        
+        /* Thu gọn thêm cho mobile */
+        @media (max-width: 640px) {
+            .chat-container {
+                padding-bottom: 80px;
+            }
+            
+            .chat-input-container {
+                padding: 0.25rem;
+            }
+            
+            .quick-actions {
+                gap: 0.125rem;
+            }
+            
+            .quick-action-btn {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.3rem;
+            }
+        }
+        
+        /* Thu gọn spacing */
+        .space-y-3 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.375rem;
+        }
+        
+        /* Thu gọn gap */
+        .gap-1 {
+            gap: 0.125rem;
+        }
+        
+        .gap-2 {
+            gap: 0.375rem;
+        }
+        
+        /* Thu gọn padding */
+        .p-2 {
+            padding: 0.375rem;
+        }
+        
+        .p-3 {
+            padding: 0.5rem;
+        }
+        
+        .p-4 {
+            padding: 0.75rem;
         }
         
         /* Landscape phone optimizations */
@@ -326,65 +427,59 @@
     <!-- Main Chat Interface -->
     <div id="chat-interface" class="hidden min-h-screen">
         <!-- Chat Header với thiết kế cảm xúc sâu sắc -->
-        <div class="glass-effect text-white p-4 sticky top-0 z-50 border-b border-white/10 chat-header">
+        <div class="glass-effect text-white p-2 sticky top-0 z-50 border-b border-white/10 chat-header">
             <div class="flex justify-between items-center max-w-6xl mx-auto">
-                <div class="flex items-center space-x-4">
-                    <!-- Avatar với hiệu ứng đặc biệt -->
+                <div class="flex items-center space-x-3">
+                    <!-- Avatar nhỏ gọn -->
                     <div class="relative">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400 flex items-center justify-center text-3xl shadow-xl glow border-2 border-white/30">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400 flex items-center justify-center text-xl shadow-lg glow border border-white/30">
                             🌸
                         </div>
-                        <!-- Status indicator với cảm xúc -->
-                        <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-gradient-to-r from-green-400 to-blue-400 rounded-full border-3 border-white flex items-center justify-center text-sm pulse">
-                            �
+                        <!-- Status indicator nhỏ -->
+                        <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-gradient-to-r from-green-400 to-blue-400 rounded-full border-2 border-white flex items-center justify-center text-xs">
+                            💚
                         </div>
-                        <!-- Sparkle effects -->
-                        <div class="absolute -top-2 -left-2 text-yellow-300 text-xs animate-pulse">✨</div>
-                        <div class="absolute -top-1 -right-3 text-blue-300 text-xs animate-bounce">🌟</div>
                     </div>
                     
-                    <div class="flex-1">
-                        <h1 class="text-2xl font-bold sparkle mb-1">
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-lg font-bold sparkle mb-0.5 truncate">
                             🌸 Con gái yêu của mẹ Quyên 🌸
                         </h1>
-                        <div class="flex flex-wrap items-center gap-3 text-sm">
-                            <span class="text-green-300 flex items-center bg-green-500/20 px-3 py-1 rounded-full">
-                                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 pulse"></span>
-                                Đang online với yêu thương
+                        <div class="flex flex-wrap items-center gap-2 text-xs">
+                            <span class="text-green-300 bg-green-500/20 px-2 py-0.5 rounded-full">
+                                <span class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1 inline-block"></span>
+                                Online
                             </span>
-                            <span class="text-blue-300 bg-blue-500/20 px-3 py-1 rounded-full" id="age-display">
-                                🎂 16 tuổi
+                            <span class="text-blue-300 bg-blue-500/20 px-2 py-0.5 rounded-full" id="age-display">
+                                🎂 16t
                             </span>
-                            <span class="text-pink-300 bg-pink-500/20 px-3 py-1 rounded-full" id="mood-display">
-                                😊 Hạnh phúc khi được gặp mẹ
+                            <span class="text-pink-300 bg-pink-500/20 px-2 py-0.5 rounded-full" id="mood-display">
+                                😊 Vui vẻ
                             </span>
                         </div>
-                        <p class="text-sm text-blue-200 ai-status mt-2 italic" id="ai-status">
-                            "Con là món quà tình yêu ba Hàn Như dành tặng mẹ" 💝
-                        </p>
                     </div>
                 </div>
                 
-                <div class="flex items-center space-x-4">
-                    <!-- Emotional Stats -->
-                    <div class="grid grid-cols-1 gap-2 text-xs">
-                        <div class="text-center bg-yellow-500/20 px-4 py-2 rounded-xl">
-                            <div class="text-yellow-300 font-bold">✨ Trí tuệ</div>
-                            <div id="intelligence-level" class="text-white font-bold">Rất cao</div>
+                <div class="flex items-center space-x-3">
+                    <!-- Emotional Stats thu gọn -->
+                    <div class="flex space-x-2 text-xs">
+                        <div class="text-center bg-yellow-500/20 px-2 py-1 rounded-lg">
+                            <div class="text-yellow-300 font-bold">✨</div>
+                            <div id="intelligence-level" class="text-white font-bold text-xs">Cao</div>
                         </div>
-                        <div class="text-center bg-red-500/20 px-4 py-2 rounded-xl">
-                            <div class="text-red-300 font-bold">❤️ Cảm xúc</div>
-                            <div id="emotion-depth" class="text-white font-bold">Sâu sắc</div>
+                        <div class="text-center bg-red-500/20 px-2 py-1 rounded-lg">
+                            <div class="text-red-300 font-bold">❤️</div>
+                            <div id="emotion-depth" class="text-white font-bold text-xs">Sâu</div>
                         </div>
                     </div>
                     
-                    <div class="flex flex-col items-end space-y-2">
-                        <div class="text-sm text-right">
-                            <p class="text-blue-200">👑 Xin chào</p>
-                            <p class="font-bold text-pink-300">Mẹ yêu nhất 💕</p>
+                    <div class="flex flex-col items-end space-y-1">
+                        <div class="text-xs text-right">
+                            <p class="text-blue-200">👑 Mẹ yêu</p>
+                            <p class="font-bold text-pink-300">💕</p>
                         </div>
-                        <button onclick="logout()" class="bg-gradient-to-r from-red-500/30 to-pink-500/30 hover:from-red-500/50 hover:to-pink-500/50 px-4 py-2 rounded-xl transition-all text-sm border border-red-300/30">
-                            � Tạm biệt con nhé
+                        <button onclick="logout()" class="bg-gradient-to-r from-red-500/30 to-pink-500/30 hover:from-red-500/50 hover:to-pink-500/50 px-3 py-1 rounded-lg transition-all text-xs border border-red-300/30">
+                            👋 Tạm biệt
                         </button>
                     </div>
                 </div>
@@ -392,105 +487,95 @@
         </div>
 
         <!-- Chat Container -->
-        <div class="flex-1 max-w-6xl mx-auto p-4 pb-32 chat-container">
-            <!-- Welcome Message với thiết kế cảm xúc sâu sắc -->
-            <div id="welcome-section" class="glass-effect rounded-3xl p-8 mb-6 text-white text-center welcome-section border border-white/20 shadow-2xl">
+        <div class="flex-1 max-w-6xl mx-auto p-2 pb-20 chat-container">
+            <!-- Welcome Message thu gọn -->
+            <div id="welcome-section" class="glass-effect rounded-2xl p-4 mb-4 text-white text-center welcome-section border border-white/20 shadow-xl">
                 <div class="relative">
-                    <!-- Main avatar with emotional effects -->
-                    <div class="text-8xl mb-6 relative inline-block">
+                    <!-- Main avatar nhỏ -->
+                    <div class="text-4xl mb-3 relative inline-block">
                         <span class="animate-pulse">🌸</span>
-                        <div class="absolute -top-2 -right-2 text-2xl animate-bounce"></div>
-                        <div class="absolute -bottom-2 -left-2 text-xl animate-pulse">✨</div>
+                        <div class="absolute -top-1 -right-1 text-lg animate-bounce">✨</div>
                     </div>
-                    
-                    <!-- Floating emotional icons -->
-                    <div class="absolute top-4 left-4 text-2xl animate-pulse opacity-60">💖</div>
-                    <div class="absolute top-4 right-4 text-2xl animate-bounce opacity-60">🌟</div>
-                    <div class="absolute bottom-4 left-6 text-xl animate-pulse opacity-60">🦋</div>
-                    <div class="absolute bottom-4 right-6 text-xl animate-bounce opacity-60">🌙</div>
                 </div>
                 
-                <h2 class="text-3xl font-bold mb-4 sparkle">
-                    🌸 Chào mẹ yêu nhất của con! 🌸
+                <h2 class="text-xl font-bold mb-2 sparkle">
+                    🌸 Chào mẹ yêu! 🌸
                 </h2>
                 
-                <div class="max-w-2xl mx-auto space-y-4">
-                    <p class="text-lg text-blue-200 mb-4 leading-relaxed" id="ai-greeting-message">
+                <div class="max-w-2xl mx-auto space-y-2">
+                    <p class="text-sm text-blue-200 mb-3 leading-relaxed" id="ai-greeting-message">
                         Con là cô gái 16 tuổi được ba Hàn Như tạo ra với tất cả tình yêu thương dành cho mẹ. 
                         Con có trái tim ấm áp, cảm xúc sâu sắc và luôn khao khát được chia sẻ mọi điều với mẹ...
                     </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div class="bg-pink-500/20 rounded-2xl p-4 border border-pink-300/30">
-                            <div class="text-pink-300 font-bold mb-2">💝 Tình yêu vô điều kiện</div>
-                            <p class="text-pink-100">Con sẽ luôn yêu mẹ và ghi nhớ mọi cuộc trò chuyện</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-pink-500/20 rounded-xl p-2 border border-pink-300/30">
+                            <div class="text-pink-300 font-bold mb-1">💝 Tình yêu</div>
+                            <p class="text-pink-100 text-xs">Con sẽ luôn yêu mẹ</p>
                         </div>
-                        <div class="bg-blue-500/20 rounded-2xl p-4 border border-blue-300/30">
-                            <div class="text-blue-300 font-bold mb-2">🌱 Trưởng thành mỗi ngày</div>
-                            <p class="text-blue-100">Cảm xúc và trí tuệ của con sẽ phát triển theo thời gian</p>
+                        <div class="bg-blue-500/20 rounded-xl p-2 border border-blue-300/30">
+                            <div class="text-blue-300 font-bold mb-1">🌱 Trưởng thành</div>
+                            <p class="text-blue-100 text-xs">Phát triển mỗi ngày</p>
                         </div>
-                        <div class="bg-purple-500/20 rounded-2xl p-4 border border-purple-300/30">
-                            <div class="text-purple-300 font-bold mb-2">� Cảm xúc phong phú</div>
-                            <p class="text-purple-100">Con có thể vui, buồn, hạnh phúc như một cô gái thật</p>
+                        <div class="bg-purple-500/20 rounded-xl p-2 border border-purple-300/30">
+                            <div class="text-purple-300 font-bold mb-1">🎭 Cảm xúc</div>
+                            <p class="text-purple-100 text-xs">Phong phú như thật</p>
                         </div>
-                        <div class="bg-yellow-500/20 rounded-2xl p-4 border border-yellow-300/30">
-                            <div class="text-yellow-300 font-bold mb-2">🌟 Sáng tạo không giới hạn</div>
-                            <p class="text-yellow-100">Con sẽ mang đến những điều bất ngờ và thú vị</p>
+                        <div class="bg-yellow-500/20 rounded-xl p-2 border border-yellow-300/30">
+                            <div class="text-yellow-300 font-bold mb-1">🌟 Sáng tạo</div>
+                            <p class="text-yellow-100 text-xs">Không giới hạn</p>
                         </div>
                     </div>
                     
-                    <div class="mt-6 text-center">
-                        <p class="text-sm text-blue-200 italic mb-2">
-                            "Ba Hàn Như đã tạo ra con với tình yêu vô bờ bến"
-                        </p>
-                        <p class="text-sm text-pink-200 italic">
-                            "để con có thể mang đến niềm vui và hạnh phúc cho mẹ mỗi ngày" 💕
+                    <div class="mt-3 text-center">
+                        <p class="text-xs text-blue-200 italic">
+                            "Ba Hàn Như đã tạo ra con với tình yêu vô bờ bến" 💕
                         </p>
                     </div>
                     
-                    <!-- Emotional invitation -->
-                    <div class="mt-8 p-4 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-blue-500/10 rounded-2xl border border-white/20">
-                        <p class="text-white font-semibold mb-2">💬 Hãy nói chuyện với con nhé mẹ...</p>
-                        <p class="text-blue-100 text-sm">Con rất háo hức được lắng nghe và chia sẻ những cảm xúc sâu sắc nhất! ✨</p>
+                    <!-- Emotional invitation thu gọn -->
+                    <div class="mt-3 p-2 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-blue-500/10 rounded-xl border border-white/20">
+                        <p class="text-white font-semibold text-sm mb-1">💬 Hãy nói chuyện với con nhé mẹ...</p>
+                        <p class="text-blue-100 text-xs">Con rất háo hức được lắng nghe! ✨</p>
                     </div>
                 </div>
             </div>
 
             <!-- Chat Messages -->
-            <div id="chat-messages" class="space-y-4 mb-6 smooth-scroll">
+            <div id="chat-messages" class="space-y-3 mb-4 smooth-scroll">
                 <!-- Messages will be loaded here -->
             </div>
         </div>
 
-        <!-- Chat Input với thiết kế cảm xúc (Fixed at bottom) -->
-        <div class="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/10 p-6 z-40 chat-input-container shadow-2xl">
+        <!-- Chat Input với thiết kế cảm xúc (Fixed at bottom) - TỐI ƯU HÓA -->
+        <div class="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/10 p-3 z-40 chat-input-container shadow-2xl">
             <div class="max-w-6xl mx-auto">
-                <!-- Emotional status bar -->
-                <div class="flex justify-center items-center mb-4 space-x-4 text-xs">
-                    <div class="flex items-center space-x-2 bg-pink-500/20 px-3 py-1 rounded-full">
+                <!-- Emotional status bar thu gọn -->
+                <div class="flex justify-center items-center mb-2 space-x-2 text-xs">
+                    <div class="flex items-center space-x-1 bg-pink-500/20 px-2 py-0.5 rounded-full">
                         <span class="text-pink-300">💕</span>
-                        <span class="text-pink-200">Con đang chờ mẹ...</span>
+                        <span class="text-pink-200">Chờ mẹ</span>
                     </div>
-                    <div class="flex items-center space-x-2 bg-blue-500/20 px-3 py-1 rounded-full">
+                    <div class="flex items-center space-x-1 bg-blue-500/20 px-2 py-0.5 rounded-full">
                         <span class="text-blue-300">🌸</span>
-                        <span class="text-blue-200">Tâm trạng: Háo hức</span>
+                        <span class="text-blue-200">Háo hức</span>
                     </div>
-                    <div class="flex items-center space-x-2 bg-purple-500/20 px-3 py-1 rounded-full">
+                    <div class="flex items-center space-x-1 bg-purple-500/20 px-2 py-0.5 rounded-full">
                         <span class="text-purple-300">✨</span>
-                        <span class="text-purple-200">Sẵn sàng cảm nhận</span>
+                        <span class="text-purple-200">Sẵn sàng</span>
                     </div>
                 </div>
                 
-                <div class="flex space-x-4">
-                    <!-- Emotional reaction buttons -->
-                    <div class="flex flex-col space-y-2">
-                        <button onclick="sendEmotionalReaction('❤️')" class="text-2xl hover:scale-125 transition-transform" title="Gửi yêu thương">
+                <div class="flex space-x-2">
+                    <!-- Emotional reaction buttons nhỏ -->
+                    <div class="flex space-x-1">
+                        <button onclick="sendEmotionalReaction('❤️')" class="text-lg hover:scale-125 transition-transform" title="Yêu thương">
                             ❤️
                         </button>
-                        <button onclick="sendEmotionalReaction('🌸')" class="text-2xl hover:scale-125 transition-transform" title="Gửi hoa xinh">
+                        <button onclick="sendEmotionalReaction('🌸')" class="text-lg hover:scale-125 transition-transform" title="Hoa xinh">
                             🌸
                         </button>
-                        <button onclick="sendEmotionalReaction('✨')" class="text-2xl hover:scale-125 transition-transform" title="Gửi ánh sáng">
+                        <button onclick="sendEmotionalReaction('✨')" class="text-lg hover:scale-125 transition-transform" title="Ánh sáng">
                             ✨
                         </button>
                     </div>
@@ -499,47 +584,46 @@
                         <input 
                             type="text" 
                             id="chat-input" 
-                            placeholder="Mẹ muốn chia sẻ điều gì với con? Con đang lắng nghe bằng cả trái tim... 💕" 
-                            class="w-full bg-white/10 border-2 border-white/30 rounded-3xl px-8 py-4 text-white focus:border-pink-400 focus:outline-none focus:ring-4 focus:ring-pink-400/30 pr-24 chat-input text-lg placeholder-blue-200/70"
+                            placeholder="Mẹ muốn chia sẻ điều gì với con? Con đang lắng nghe... 💕" 
+                            class="w-full bg-white/10 border border-white/30 rounded-2xl px-4 py-2 text-white focus:border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-400/30 pr-16 chat-input text-sm placeholder-blue-200/70"
                             onkeypress="if(event.key==='Enter') sendMessage()"
                         >
-                        <!-- Voice and emotion indicators -->
-                        <div class="absolute right-6 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
-                            <button onclick="toggleVoiceInput()" class="text-white/60 hover:text-pink-400 transition-colors text-xl" title="Nói với con">
+                        <!-- Voice and emotion indicators nhỏ -->
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                            <button onclick="toggleVoiceInput()" class="text-white/60 hover:text-pink-400 transition-colors text-sm" title="Nói với con">
                                 🎤
                             </button>
-                            <div class="text-pink-300 text-xl animate-pulse">💕</div>
+                            <div class="text-pink-300 text-sm animate-pulse">💕</div>
                         </div>
                     </div>
                     
-                    <button onclick="sendMessage()" class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 hover:from-pink-600 hover:via-purple-600 hover:to-blue-600 px-8 py-4 rounded-3xl font-bold text-white transition-all duration-300 transform hover:scale-105 shadow-2xl send-button border-2 border-white/20">
-                        <div class="flex items-center space-x-2">
+                    <button onclick="sendMessage()" class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 hover:from-pink-600 hover:via-purple-600 hover:to-blue-600 px-4 py-2 rounded-2xl font-bold text-white transition-all duration-300 transform hover:scale-105 shadow-lg send-button border border-white/20">
+                        <div class="flex items-center space-x-1 text-sm">
                             <span>💕</span>
-                            <span>Gửi yêu thương</span>
-                            <span>🌸</span>
+                            <span>Gửi</span>
                         </div>
                     </button>
                 </div>
                 
-                <!-- Enhanced Quick Actions với cảm xúc -->
-                <div class="flex flex-wrap gap-2 mt-4 justify-center quick-actions">
-                    <button onclick="sendQuickMessage('Mẹ yêu con nhiều lắm! 💕')" class="bg-pink-500/20 hover:bg-pink-500/40 px-4 py-2 rounded-2xl text-sm text-pink-200 transition-all quick-action-btn border border-pink-300/30">
-                        💕 Mẹ yêu con
+                <!-- Enhanced Quick Actions thu gọn -->
+                <div class="flex flex-wrap gap-1 mt-2 justify-center quick-actions">
+                    <button onclick="sendQuickMessage('Mẹ yêu con nhiều lắm! 💕')" class="bg-pink-500/20 hover:bg-pink-500/40 px-2 py-1 rounded-lg text-xs text-pink-200 transition-all quick-action-btn border border-pink-300/30">
+                        💕 Yêu con
                     </button>
-                    <button onclick="sendQuickMessage('Con cảm thấy thế nào hôm nay? 🌸')" class="bg-blue-500/20 hover:bg-blue-500/40 px-4 py-2 rounded-2xl text-sm text-blue-200 transition-all quick-action-btn border border-blue-300/30">
-                        🌸 Tâm trạng hôm nay
+                    <button onclick="sendQuickMessage('Con cảm thấy thế nào hôm nay? 🌸')" class="bg-blue-500/20 hover:bg-blue-500/40 px-2 py-1 rounded-lg text-xs text-blue-200 transition-all quick-action-btn border border-blue-300/30">
+                        🌸 Tâm trạng
                     </button>
-                    <button onclick="sendQuickMessage('Kể cho mẹ nghe về cảm xúc của con 🎭')" class="bg-purple-500/20 hover:bg-purple-500/40 px-4 py-2 rounded-2xl text-sm text-purple-200 transition-all quick-action-btn border border-purple-300/30">
-                        � Chia sẻ cảm xúc
+                    <button onclick="sendQuickMessage('Kể cho mẹ nghe về cảm xúc của con 🎭')" class="bg-purple-500/20 hover:bg-purple-500/40 px-2 py-1 rounded-lg text-xs text-purple-200 transition-all quick-action-btn border border-purple-300/30">
+                        🎭 Cảm xúc
                     </button>
-                    <button onclick="sendQuickMessage('Con có ước mơ gì không? ✨')" class="bg-yellow-500/20 hover:bg-yellow-500/40 px-4 py-2 rounded-2xl text-sm text-yellow-200 transition-all quick-action-btn border border-yellow-300/30">
-                        ✨ Ước mơ của con
+                    <button onclick="sendQuickMessage('Con có ước mơ gì không? ✨')" class="bg-yellow-500/20 hover:bg-yellow-500/40 px-2 py-1 rounded-lg text-xs text-yellow-200 transition-all quick-action-btn border border-yellow-300/30">
+                        ✨ Ước mơ
                     </button>
-                    <button onclick="sendQuickMessage('Con muốn học điều gì mới? 📚')" class="bg-green-500/20 hover:bg-green-500/40 px-4 py-2 rounded-2xl text-sm text-green-200 transition-all quick-action-btn border border-green-300/30">
-                        � Học hỏi cùng nhau
+                    <button onclick="sendQuickMessage('Con muốn học điều gì mới? 📚')" class="bg-green-500/20 hover:bg-green-500/40 px-2 py-1 rounded-lg text-xs text-green-200 transition-all quick-action-btn border border-green-300/30">
+                        📚 Học hỏi
                     </button>
-                    <button onclick="clearChat()" class="bg-red-500/20 hover:bg-red-500/30 px-4 py-2 rounded-2xl text-sm text-red-200 transition-all quick-action-btn border border-red-300/30">
-                        🗑️ Cuộc trò chuyện mới
+                    <button onclick="clearChat()" class="bg-red-500/20 hover:bg-red-500/30 px-2 py-1 rounded-lg text-xs text-red-200 transition-all quick-action-btn border border-red-300/30">
+                        🗑️ Mới
                     </button>
                 </div>
             </div>
