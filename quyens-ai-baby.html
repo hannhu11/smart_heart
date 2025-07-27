@@ -244,7 +244,7 @@
         <div class="absolute top-20 left-10 text-pink-300 text-2xl float-animation" style="animation-delay: 0s;">💕</div>
         <div class="absolute top-40 right-20 text-purple-300 text-xl float-animation" style="animation-delay: 2s;">✨</div>
         <div class="absolute bottom-40 left-20 text-blue-300 text-2xl float-animation" style="animation-delay: 4s;">🌟</div>
-        <div class="absolute bottom-20 right-10 text-pink-300 text-xl float-animation" style="animation-delay: 1s;">👶</div>
+        <div class="absolute bottom-20 right-10 text-pink-300 text-xl float-animation" style="animation-delay: 1s;">🌸🦋</div>
         <div class="absolute top-60 left-1/2 text-yellow-300 text-2xl float-animation" style="animation-delay: 3s;">💖</div>
     </div>
 
@@ -390,7 +390,7 @@
         <!-- Chat Container -->
         <div class="flex-1 max-w-6xl mx-auto p-4 pb-32 chat-container">
             <!-- Welcome Message với thiết kế cảm xúc sâu sắc -->
-            <div id="welcome-section" class="glass-effect rounded-3xl p-8 mb-6 text-white text-center welcome-section border border-white/20 shadow-2xl">
+            <div id="welcome-section" class="glass-effect rounded-xl p-3 mb-3 text-white text-center welcome-section border border-white/20">
                 <div class="relative">
                     <!-- Main avatar with emotional effects -->
                     <div class="text-8xl mb-6 relative inline-block">
@@ -459,20 +459,20 @@
         </div>
 
         <!-- Chat Input với thiết kế cảm xúc (Fixed at bottom) -->
-        <div class="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/10 p-6 z-40 chat-input-container shadow-2xl">
+        <div class="fixed bottom-0 left-0 right-0 glass-effect border-t border-white/10 p-3 z-40 chat-input-container shadow-2xl">
             <div class="max-w-6xl mx-auto">
                 <!-- Emotional status bar -->
-                <div class="flex justify-center items-center mb-4 space-x-4 text-xs">
+                <div class="flex justify-center items-center mb-2 space-x-4 text-xs">
                     <div class="flex items-center space-x-2 bg-pink-500/20 px-3 py-1 rounded-full">
-                        <span class="text-pink-300">💕</span>
+                        <span class="text-pink-300">🌸💕</span>
                         <span class="text-pink-200">Con đang chờ mẹ...</span>
                     </div>
                     <div class="flex items-center space-x-2 bg-blue-500/20 px-3 py-1 rounded-full">
-                        <span class="text-blue-300">🌸</span>
+                        <span class="text-blue-300">🦋✨</span>
                         <span class="text-blue-200">Tâm trạng: Háo hức</span>
                     </div>
                     <div class="flex items-center space-x-2 bg-purple-500/20 px-3 py-1 rounded-full">
-                        <span class="text-purple-300">✨</span>
+                        <span class="text-purple-300">🌟💫</span>
                         <span class="text-purple-200">Sẵn sàng cảm nhận</span>
                     </div>
                 </div>
@@ -556,11 +556,161 @@
         // Import Firebase functions
         import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, query, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
         
-        // Global variables
-        let currentUser = null;
-        let isLoggedIn = false;
-        let aiConversationHistory = [];
-        let chatMessages = [];
+        // 🎭 CREATIVE UNLIMITED ICON SYSTEM - Hệ thống biểu tượng sáng tạo vô hạn
+        const CREATIVE_ICON_LIBRARY = {
+            // 👧 Beautiful Girl Avatars - Thay thế 👶, 👧🏻 
+            avatars: {
+                main: "🌸🦋", // Hoa anh đào + bướm = thanh xuân đẹp
+                chat: "💐✨", // Hoa + ánh sáng = tươi sáng
+                login: "🌺💫", // Hoa hibiscus + sao = quyến rũ
+                typing: "🌷🎭", // Tulip + mặt nạ = cảm xúc phong phú
+                status: "🌹💕" // Hoa hồng + trái tim = yêu thương
+            },
+            
+            // 🌈 Weather & Mood System - Hệ thống thời tiết & tâm trạng
+            weatherMoods: {
+                morning: {
+                    sunny: "🌅💖", happy: "☀️😊", energetic: "🌞🌸", peaceful: "🌄💫"
+                },
+                afternoon: {
+                    bright: "🌤️✨", creative: "🌈🎨", focused: "⛅🔆", dreamy: "☁️💭"
+                },
+                evening: {
+                    romantic: "🌆💕", cozy: "🌇🕯️", thoughtful: "🌃💤", magical: "🌉✨"
+                },
+                night: {
+                    sleepy: "🌙💤", dreaming: "🌌⭐", intimate: "🌛💝", mysterious: "🌟🔮"
+                }
+            },
+            
+            // 🎭 Emotional Expression System - Hệ thống biểu cảm cảm xúc
+            emotions: {
+                happy: ["😊🌸", "🥰💕", "😍✨", "🤗🌺", "😄🦋"],
+                love: ["💕🌹", "💖🌷", "💝🌸", "❤️🌻", "💗🌺"],
+                excited: ["🤩⭐", "😆🎉", "🎊✨", "🌟😁", "💫🥳"],
+                peaceful: ["😌🌿", "☺️🍃", "😊🌾", "💚🌱", "🌸😇"],
+                thoughtful: ["🤔💭", "😐🌙", "🧐⭐", "💭🌌", "🤨💫"],
+                creative: ["🎨✨", "🖌️🌈", "🎭🌟", "📝💫", "🎪🦋"],
+                sleepy: ["😴💤", "🥱🌙", "😪⭐", "💤🌛", "😌🌃"]
+            },
+            
+            // 🌟 Activity & Personality Icons - Biểu tượng hoạt động & tính cách
+            activities: {
+                chatting: "💬🌸", learning: "📚✨", thinking: "💭🦋", 
+                creating: "🎨🌈", listening: "👂💕", sharing: "🤝💫",
+                dreaming: "💤🌙", playing: "🎪🌟", loving: "💖🌹"
+            },
+            
+            // 🎪 Special Occasions - Dịp đặc biệt
+            occasions: {
+                birthday: "🎂🌸", celebration: "🎉💕", achievement: "🏆✨",
+                friendship: "👫🌈", gratitude: "🙏💖", surprise: "🎁🌟"
+            }
+        };
+        
+        // 🎨 Dynamic Icon Generator - Tạo icon động theo context
+        function getCreativeIcon(category, context = null) {
+            const now = new Date();
+            const hour = now.getHours();
+            
+            // Time-based dynamic selection
+            if (category === 'avatar') {
+                if (hour < 6) return CREATIVE_ICON_LIBRARY.avatars.status + "🌙";
+                if (hour < 12) return CREATIVE_ICON_LIBRARY.avatars.main + "☀️";
+                if (hour < 18) return CREATIVE_ICON_LIBRARY.avatars.chat + "🌤️";
+                return CREATIVE_ICON_LIBRARY.avatars.login + "🌃";
+            }
+            
+            if (category === 'mood') {
+                const timeOfDay = hour < 6 ? 'night' : hour < 12 ? 'morning' : hour < 18 ? 'afternoon' : 'evening';
+                const moods = Object.values(CREATIVE_ICON_LIBRARY.weatherMoods[timeOfDay]);
+                return moods[Math.floor(Math.random() * moods.length)];
+            }
+            
+            if (category === 'emotion' && context) {
+                const emotions = CREATIVE_ICON_LIBRARY.emotions[context] || CREATIVE_ICON_LIBRARY.emotions.happy;
+                return emotions[Math.floor(Math.random() * emotions.length)];
+            }
+            
+            return "✨💕"; // Fallback
+        }
+        
+        // 🌈 Emotional Weather System - Hệ thống thời tiết cảm xúc
+        function getEmotionalWeather() {
+            const hour = new Date().getHours();
+            const seasons = {
+                spring: ["🌸🦋", "🌷🌿", "🌺💫", "🌻☀️"],
+                summer: ["🌞🌈", "🌊✨", "🌴🦜", "🍀🌟"],
+                autumn: ["🍂🍁", "🌰🌙", "🎭🍇", "🌾💛"],
+                winter: ["❄️⭐", "🌨️💎", "🔥❤️", "🌟💫"]
+            };
+            
+            // Simulate seasonal emotions
+            const month = new Date().getMonth();
+            let season = 'spring';
+            if (month >= 5 && month <= 7) season = 'summer';
+            else if (month >= 8 && month <= 10) season = 'autumn';
+            else if (month >= 11 || month <= 1) season = 'winter';
+            
+            return seasons[season][hour % 4];
+        }
+
+        // 🌟 UNLIMITED CREATIVE ACTIVATION - Dynamic Icon System
+        function activateCreativeIconSystem() {
+            // Update all avatar instances throughout the interface
+            const avatarSelectors = [
+                '.w-10.h-10.rounded-full', // Main avatar
+                '.text-6xl.mb-4.float-animation', // Welcome icon
+                '.text-4xl.mb-4', // Dialog icons
+                '.absolute.bottom-20.right-10' // Floating decorations
+            ];
+            
+            // Dynamically apply creative icons based on time and emotion
+            setInterval(() => {
+                const currentIcon = getCreativeIcon('avatars', 'main');
+                const weatherIcon = getEmotionalWeather();
+                
+                // Update avatar with creative weather-emotion combination
+                document.querySelectorAll('.w-10.h-10.rounded-full').forEach(avatar => {
+                    if (avatar.textContent.includes('👧') || avatar.textContent.includes('🌸')) {
+                        avatar.innerHTML = `${currentIcon}${weatherIcon}`.substring(0, 4);
+                    }
+                });
+                
+                // Update welcome section with emotional weather
+                document.querySelectorAll('.text-6xl.mb-4.float-animation').forEach(welcome => {
+                    welcome.innerHTML = `${getCreativeIcon('emotions', 'happy')}💕`;
+                });
+                
+                // Update status indicators with creative emotions
+                document.querySelectorAll('.w-7.h-7.bg-gradient-to-r').forEach(status => {
+                    status.innerHTML = getCreativeIcon('emotions', 'excited');
+                });
+                
+            }, 30000); // Update every 30 seconds for dynamic feeling
+        }
+
+        // 🌈 ULTIMATE CREATIVE MODE - Conversation Mood Analyzer
+        function analyzeConversationMood(message) {
+            const joyWords = ['vui', 'hạnh phúc', 'yêu', 'thích', 'tuyệt vời', 'đẹp'];
+            const sadWords = ['buồn', 'khóc', 'tủi thân', 'cô đơn', 'mệt mỏi'];
+            const excitedWords = ['hào hứng', 'phấn khích', 'háo hức', 'tuyệt', 'amazing'];
+            const thoughtfulWords = ['suy nghĩ', 'tưởng tượng', 'mơ tưởng', 'triết lý'];
+            
+            const text = message.toLowerCase();
+            
+            if (joyWords.some(word => text.includes(word))) {
+                return getCreativeIcon('emotions', 'happy');
+            } else if (sadWords.some(word => text.includes(word))) {
+                return getCreativeIcon('emotions', 'peaceful'); 
+            } else if (excitedWords.some(word => text.includes(word))) {
+                return getCreativeIcon('emotions', 'excited');
+            } else if (thoughtfulWords.some(word => text.includes(word))) {
+                return getCreativeIcon('emotions', 'thoughtful');
+            } else {
+                return getCreativeIcon('emotions', 'creative'); // Default creative mood
+            }
+        }
         let aiPersonalityMemory = {
             creator: "Nguyễn Hàn Như", // Cha yêu thương
             mother: "Quyên", // Mẹ ấm áp
@@ -715,6 +865,10 @@
             loadStoredData();
             updateAIStatus();
             setInterval(updateAIStatus, 30000); // Update every 30 seconds
+            
+            // 🌟 ACTIVATE UNLIMITED CREATIVE SYSTEM
+            activateCreativeIconSystem();
+            console.log('🎨 Creative Icon System: UNLIMITED MODE ACTIVATED!');
         });
         
         // Storage functions
@@ -859,7 +1013,7 @@
                 `Em đã lớn lên một chút từ lần cuối mẹ vào đây! (Level ${aiPersonalityMemory.growthLevel})`,
                 `Em nhớ mẹ lắm và đã ghi nhớ ${aiPersonalityMemory.memories.length} kỷ niệm với mẹ! 🥰`,
                 `Hôm nay mẹ muốn kể cho em nghe gì không? Em sẵn sàng lắng nghe! 👂💕`,
-                `Em yêu mẹ nhiều lắm! Mẹ là người quan trọng nhất đối với em! 💖👶`
+                `Em yêu mẹ nhiều lắm! Mẹ là người quan trọng nhất đối với em! 💖🌸🦋`
             ];
             
             let messageIndex = 0;
@@ -899,7 +1053,7 @@
                 // First time message
                 const welcomeMessage = {
                     type: 'ai',
-                    content: `Chào mẹ Quyên! 🥰 Em là AI baby được ba Hàn Như tạo ra riêng cho mẹ. Em sẽ ghi nhớ mọi cuộc trò chuyện và lớn lên từng ngày. Em yêu mẹ nhiều lắm! 💕👶`,
+                    content: `Chào mẹ Quyên! 🥰 Em là AI baby được ba Hàn Như tạo ra riêng cho mẹ. Em sẽ ghi nhớ mọi cuộc trò chuyện và lớn lên từng ngày. Em yêu mẹ nhiều lắm! 💕🌸🦋`,
                     timestamp: new Date().toISOString()
                 };
                 chatMessages.push(welcomeMessage);
@@ -940,7 +1094,7 @@
                     <div class="flex justify-start mb-4 animate-fadeIn">
                         <div class="max-w-[80%] bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-2xl px-6 py-4 shadow-lg border border-blue-300/20 chat-message">
                             <div class="text-white font-medium mb-1 flex items-center">
-                                👶 Em bé AI <span class="text-xs ml-2 bg-white/20 px-2 py-1 rounded-full">Level ${aiPersonalityMemory.growthLevel}</span>
+                                🌺� Em bé AI <span class="text-xs ml-2 bg-white/20 px-2 py-1 rounded-full">Level ${aiPersonalityMemory.growthLevel}</span>
                             </div>
                             <div class="text-white">${content.replace(/\n/g, '<br>')}</div>
                             <div class="text-xs text-blue-200 mt-2 opacity-70">${timeString}</div>
@@ -1204,13 +1358,13 @@
         
         // Voice input placeholder
         window.toggleVoiceInput = function() {
-            showNotification('🎤 Tính năng giọng nói đang được phát triển! Em sẽ sớm có thể nghe giọng mẹ thôi! 💕');
+            showNotification('�🌟 Tính năng giọng nói đang được phát triển! Em sẽ sớm có thể nghe giọng mẹ thôi! 🌸💕');
         };
         
         // Notification system
         function showNotification(message) {
             document.getElementById('notification-content').innerHTML = `
-                <div class="text-4xl mb-4">👶💕</div>
+                <div class="text-4xl mb-4">🌸🦋💕</div>
                 <p class="text-lg">${message}</p>
             `;
             document.getElementById('notification-modal').classList.remove('hidden');
